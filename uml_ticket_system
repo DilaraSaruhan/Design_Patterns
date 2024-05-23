@@ -1,0 +1,59 @@
+@startuml
+
+abstract class Bilet {
+    - String description
+    + getDescription() : String
+    + fiyat() : double
+}
+
+class Business extends Bilet {
+    + Business()
+    + fiyat() : double
+}
+
+class Ekonomi extends Bilet {
+    + Ekonomi()
+    + fiyat() : double
+}
+
+class VIP extends Bilet {
+    + VIP()
+    + fiyat() : double
+    + getDescription() : String
+}
+
+abstract class BiletDecorator extends Bilet {
+    + getDescription() : String
+}
+
+class EkBagaj extends BiletDecorator {
+    - Bilet bilet
+    + EkBagaj(Bilet bilet)
+    + getDescription() : String
+    + fiyat() : double
+}
+
+class EkYemek extends BiletDecorator {
+    - Bilet bilet
+    + EkYemek(Bilet bilet)
+    + getDescription() : String
+    + fiyat() : double
+}
+
+class KoltukSecimi extends BiletDecorator {
+    - Bilet bilet
+    + KoltukSecimi(Bilet bilet)
+    + getDescription() : String
+    + fiyat() : double
+}
+
+Bilet <|-- Business
+Bilet <|-- Ekonomi
+Bilet <|-- VIP
+
+Bilet <|.. BiletDecorator
+BiletDecorator <|-- EkBagaj
+BiletDecorator <|-- EkYemek
+BiletDecorator <|-- KoltukSecimi
+
+@enduml
