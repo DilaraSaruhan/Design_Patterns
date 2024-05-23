@@ -1,0 +1,120 @@
+@startuml
+
+abstract class Oda {
+    - String description
+    + getDescription() : String
+    + fiyat() : double
+}
+
+class SadeceOda extends Oda {
+    + SadeceOda()
+    + fiyat() : double
+}
+
+class YarımPansiyon extends Oda {
+    + YarımPansiyon()
+    + fiyat() : double
+    + getDescription() : String
+}
+
+class TamPansiyon extends Oda {
+    + TamPansiyon()
+    + fiyat() : double
+    + getDescription() : String
+}
+
+class HerSeyDahil extends Oda {
+    + HerSeyDahil()
+    + fiyat() : double
+    + getDescription() : String
+}
+
+abstract class OdaDecorator extends Oda {
+    + getDescription() : String
+}
+
+class Spa extends OdaDecorator {
+    - Oda oda
+    + Spa(Oda oda)
+    + getDescription() : String
+    + fiyat() : double
+}
+
+class Gym extends OdaDecorator {
+    - Oda oda
+    + Gym(Oda oda)
+    + getDescription() : String
+    + fiyat() : double
+}
+
+abstract class SporDecorator extends OdaDecorator {
+    + SporDecorator(Oda oda)
+}
+
+class Kayak extends SporDecorator {
+    - Oda oda
+    + Kayak(Oda oda)
+    + getDescription() : String
+    + fiyat() : double
+}
+
+class Bowling extends SporDecorator {
+    - Oda oda
+    + Bowling(Oda oda)
+    + getDescription() : String
+    + fiyat() : double
+}
+
+class Tenis extends SporDecorator {
+    - Oda oda
+    + Tenis(Oda oda)
+    + getDescription() : String
+    + fiyat() : double
+}
+
+abstract class GezmeDecorator extends OdaDecorator {
+    + GezmeDecorator(Oda oda)
+}
+
+class AdaTuru extends GezmeDecorator {
+    - Oda oda
+    + AdaTuru(Oda oda)
+    + getDescription() : String
+    + fiyat() : double
+}
+
+class MuzeTuru extends GezmeDecorator {
+    - Oda oda
+    + MuzeTuru(Oda oda)
+    + getDescription() : String
+    + fiyat() : double
+}
+
+class Animasyon extends OdaDecorator {
+    - Oda oda
+    + Animasyon(Oda oda)
+    + getDescription() : String
+    + fiyat() : double
+}
+
+Oda <|-- SadeceOda
+Oda <|-- YarımPansiyon
+Oda <|-- TamPansiyon
+Oda <|-- HerSeyDahil
+
+Oda <|.. OdaDecorator
+OdaDecorator <|-- Spa
+OdaDecorator <|-- Gym
+
+OdaDecorator <|.. SporDecorator
+SporDecorator <|-- Kayak
+SporDecorator <|-- Bowling
+SporDecorator <|-- Tenis
+
+OdaDecorator <|.. GezmeDecorator
+GezmeDecorator <|-- AdaTuru
+GezmeDecorator <|-- MuzeTuru
+
+OdaDecorator <|-- Animasyon
+
+@enduml
