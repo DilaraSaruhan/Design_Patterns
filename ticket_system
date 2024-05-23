@@ -1,0 +1,116 @@
+abstract class Bilet { 
+    String description = "Bilinmeyen Bilet"; 
+ 
+    public String getDescription() { 
+        return description; 
+    } 
+ 
+    public abstract double fiyat(); 
+} 
+ 
+class Business extends Bilet { 
+    public Business() { 
+        description = "Business Bilet"; 
+    } 
+ 
+    public double fiyat() { 
+        return 500.00; 
+    } 
+} 
+ 
+class Ekonomi extends Bilet { 
+    public Ekonomi() { 
+        description = "Ekonomi Bilet"; 
+    } 
+ 
+    public double fiyat() { 
+        return 200.00; 
+    } 
+} 
+ 
+class VIP extends Bilet { 
+    public VIP() { 
+3 
+        description = "VIP Bilet"; 
+    } 
+ 
+    public double fiyat() { 
+        return 800.00; // VIP biletin temel fiyatı 
+    } 
+ 
+    @Override 
+    public String getDescription() { 
+        return description + ", 40kg Bagaj, Yemek, Koltuk Seçme, 15kg El Bagajı"; 
+    } 
+} 
+ 
+abstract class BiletDecorator extends Bilet { 
+    public abstract String getDescription(); 
+} 
+ 
+class EkBagaj extends BiletDecorator { 
+    Bilet bilet; 
+ 
+    public EkBagaj(Bilet bilet) { 
+        this.bilet = bilet; 
+    } 
+ 
+    public String getDescription() { 
+        return bilet.getDescription() + ", Ek Bagaj"; 
+    } 
+ 
+    public double fiyat() { 
+        return bilet.fiyat() + 50.00; 
+    } 
+} 
+4 
+ 
+class EkYemek extends BiletDecorator { 
+    Bilet bilet; 
+ 
+    public EkYemek(Bilet bilet) { 
+        this.bilet = bilet; 
+    } 
+    public String getDescription() { 
+        return bilet.getDescription() + ", Ek Yemek"; 
+    } 
+    public double fiyat() { 
+        return bilet.fiyat() + 30.00; 
+    } 
+} 
+ 
+class KoltukSecimi extends BiletDecorator { 
+    Bilet bilet; 
+ 
+    public KoltukSecimi(Bilet bilet) { 
+        this.bilet = bilet; 
+    } 
+ 
+    public String getDescription() { 
+        return bilet.getDescription() + ", Koltuk Seçimi"; 
+    } 
+ 
+    public double fiyat() { 
+        return bilet.fiyat() + 20.00; 
+    } 
+} 
+ 
+public class Main { 
+5 
+    public static void main(String[] args) { 
+        Bilet vipBilet = new VIP(); 
+        System.out.println(vipBilet.getDescription() + " $" + vipBilet.fiyat()); 
+ 
+        Bilet ekonomiBilet = new Ekonomi(); 
+        System.out.println(ekonomiBilet.getDescription() + " $" + ekonomiBilet.fiyat()); 
+ 
+        ekonomiBilet = new EkBagaj(ekonomiBilet); 
+        System.out.println(ekonomiBilet.getDescription() + " $" + ekonomiBilet.fiyat()); 
+ 
+        ekonomiBilet = new EkYemek(ekonomiBilet); 
+        System.out.println(ekonomiBilet.getDescription() + " $" + ekonomiBilet.fiyat()); 
+ 
+        ekonomiBilet = new KoltukSecimi(ekonomiBilet); 
+        System.out.println(ekonomiBilet.getDescription() + " $" + ekonomiBilet.fiyat()); 
+    } 
+}
