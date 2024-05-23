@@ -1,0 +1,242 @@
+abstract class Oda {
+    String description = "Bilinmeyen Oda";
+
+    public String getDescription() {
+        return description;
+    }
+
+    public abstract double fiyat();
+}
+
+class SadeceOda extends Oda {
+    public SadeceOda() {
+        description = "Sadece Oda";
+    }
+
+    public double fiyat() {
+        return 100.00;
+    }
+}
+
+class YarımPansiyon extends Oda {
+    public YarımPansiyon() {
+        description = "Yarım Pansiyon";
+    }
+
+    public double fiyat() {
+        return 150.00;
+    }
+
+    @Override
+    public String getDescription() {
+        return description + " (Kahvaltı Dahil)";
+    }
+}
+
+class TamPansiyon extends Oda {
+    public TamPansiyon() {
+        description = "Tam Pansiyon";
+    }
+
+    public double fiyat() {
+        return 200.00;
+    }
+
+    @Override
+    public String getDescription() {
+        return description + " (3 Öğün Yemek Dahil)";
+    }
+}
+
+class HerSeyDahil extends Oda {
+    public HerSeyDahil() {
+        description = "Her Şey Dahil";
+    }
+
+    public double fiyat() {
+        return 300.00;
+    }
+
+    @Override
+    public String getDescription() {
+        return description + " (Her Şey Dahil)";
+    }
+}
+
+abstract class OdaDecorator extends Oda {
+    public abstract String getDescription();
+}
+
+class Spa extends OdaDecorator {
+    Oda oda;
+
+    public Spa(Oda oda) {
+        this.oda = oda;
+    }
+
+    public String getDescription() {
+        return oda.getDescription() + ", Spa";
+    }
+
+    public double fiyat() {
+        return oda.fiyat() + 50.00;
+    }
+}
+
+class Gym extends OdaDecorator {
+    Oda oda;
+
+    public Gym(Oda oda) {
+        this.oda = oda;
+    }
+
+    public String getDescription() {
+        return oda.getDescription() + ", Gym";
+    }
+
+    public double fiyat() {
+        return oda.fiyat() + 30.00;
+    }
+}
+
+abstract class SporDecorator extends OdaDecorator {
+    public SporDecorator(Oda oda) {
+        this.oda = oda;
+    }
+}
+
+class Kayak extends SporDecorator {
+    Oda oda;
+
+    public Kayak(Oda oda) {
+        super(oda);
+    }
+
+    public String getDescription() {
+        return oda.getDescription() + ", Kayak";
+    }
+
+    public double fiyat() {
+        return oda.fiyat() + 60.00;
+    }
+}
+
+class Bowling extends SporDecorator {
+    Oda oda;
+
+    public Bowling(Oda oda) {
+        super(oda);
+    }
+
+    public String getDescription() {
+        return oda.getDescription() + ", Bowling";
+    }
+
+    public double fiyat() {
+        return oda.fiyat() + 50.00;
+    }
+}
+
+class Tenis extends SporDecorator {
+    Oda oda;
+
+    public Tenis(Oda oda) {
+        super(oda);
+    }
+
+    public String getDescription() {
+        return oda.getDescription() + ", Tenis";
+    }
+
+    public double fiyat() {
+        return oda.fiyat() + 45.00;
+    }
+}
+
+abstract class GezmeDecorator extends OdaDecorator {
+    public GezmeDecorator(Oda oda) {
+        this.oda = oda;
+    }
+}
+
+class AdaTuru extends GezmeDecorator {
+    Oda oda;
+
+    public AdaTuru(Oda oda) {
+        super(oda);
+    }
+
+    public String getDescription() {
+        return oda.getDescription() + ", Ada Turu";
+    }
+
+    public double fiyat() {
+        return oda.fiyat() + 70.00;
+    }
+}
+
+class MuzeTuru extends GezmeDecorator {
+    Oda oda;
+
+    public MuzeTuru(Oda oda) {
+        super(oda);
+    }
+
+    public String getDescription() {
+        return oda.getDescription() + ", Müze Turu";
+    }
+
+    public double fiyat() {
+        return oda.fiyat() + 40.00;
+    }
+}
+
+class Animasyon extends OdaDecorator {
+    Oda oda;
+
+    public Animasyon(Oda oda) {
+        this.oda = oda;
+    }
+
+    public String getDescription() {
+        return oda.getDescription() + ", Animasyon";
+    }
+
+    public double fiyat() {
+        return oda.fiyat() + 40.00;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Oda oda1 = new SadeceOda();
+        System.out.println(oda1.getDescription() + " $" + oda1.fiyat());
+
+        oda1 = new Spa(oda1);
+        System.out.println(oda1.getDescription() + " $" + oda1.fiyat());
+
+        oda1 = new Gym(oda1);
+        System.out.println(oda1.getDescription() + " $" + oda1.fiyat());
+
+        oda1 = new Kayak(oda1);
+        System.out.println(oda1.getDescription() + " $" + oda1.fiyat());
+
+        oda1 = new Bowling(oda1);
+        System.out.println(oda1.getDescription() + " $" + oda1.fiyat());
+
+        oda1 = new Tenis(oda1);
+        System.out.println(oda1.getDescription() + " $" + oda1.fiyat());
+
+        Oda oda2 = new HerSeyDahil();
+        System.out.println(oda2.getDescription() + " $" + oda2.fiyat());
+
+        oda2 = new AdaTuru(oda2);
+        System.out.println(oda2.getDescription() + " $" + oda2.fiyat());
+
+        oda2 = new MuzeTuru(oda2);
+        System.out.println(oda2.getDescription() + " $" + oda2.fiyat());
+
+        oda2 = new Animasyon(oda2);
+        System.out.println(oda2.getDescription() + " $" + oda2.fiyat());
+    }
+}
